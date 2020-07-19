@@ -1,6 +1,12 @@
 import React from "react";
 
 export default class Filters extends React.Component {
+    constructor() {
+        super();
+        this.state= {
+            sort_by: ""
+        }
+    }
     render() {
         return (
             <form className="mb-3">

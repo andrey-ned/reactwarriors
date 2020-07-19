@@ -6,11 +6,26 @@ export default class MovieItem extends React.Component {
 
         this.state = {
             overview: false,
+            forWatch: false,
         };
     }
 
     showOverview = () => {
         return this.setState({overview: !this.state.overview})
+    }
+    forWatching = () => {
+        return this.setState({forWatch: !this.state.forWatch})
+    }
+
+
+    addForWatch = movie => {
+        const setWill = this.props.setter;
+        setWill(movie);
+    }
+
+    removeForWatch = movie_id =>{
+        const delWill = this.props.delete;
+        delWill(movie_id);
     }
 
     render() {
@@ -31,7 +46,24 @@ export default class MovieItem extends React.Component {
                         <button onClick={this.showOverview}>{this.state.overview ? "Hide" : "Show" }</button>
                         {this.state.overview ? <p>{item.overview}</p> : ""}
                         <button onClick={remove.bind(null, item.id)}> Delete</button>
-                        <button >Will watch</button>
+                        {!this.state.forWatch ?
+                            <button
+                                type="button"
+                                className="btn btn-secondary"
+                                onClick={() =>{
+                                    this.forWatching();
+                                    this.addForWatch(item)
+                                }}
+                            >Add watch </button> :
+                            <button
+                                onClick={() =>{
+                                    this.forWatching();
+                                    this.removeForWatch(item.id)
+                                    }}
+                                type="button"
+                                className="btn btn-success"
+                            >Remove watch </button>}
+
                     </div>
                 </div>
             </div>
